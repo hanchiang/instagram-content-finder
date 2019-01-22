@@ -264,10 +264,6 @@ async function main() {
       console.log(`User '${userViral.username}' is private. Skipping...`);
       return;
     }
-    if (userViral.numPosts === 0) {
-      console.log(`User has ${userViral.numPosts} posts. Skipping...`);
-      return;
-    }
     if (userViral.numPosts < NUM_TO_CALC_AVERAGE_ENGAGEMENT) {
       console.log(`Did not meet minimum of ${NUM_TO_CALC_AVERAGE_ENGAGEMENT} posts. Skipping..`);
       return;

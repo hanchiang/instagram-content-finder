@@ -15,7 +15,6 @@ const apiErrorHandler = (err) => {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
 
-    // console.log('Response error');
     // console.log(err.response);
     // console.log(err.response.data);
     // console.log(err.response.status);
@@ -28,7 +27,7 @@ const apiErrorHandler = (err) => {
       // err.response.data.message = 'rate limited'
       // err.response.data.status = 'fail'
       // err.response.status = 429
-      console.log('Rated limited!!');
+      console.log('Rated limited!');
     }
   } else if (err.request) {
     // The request was made but no response was received

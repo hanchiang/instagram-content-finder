@@ -4,16 +4,16 @@
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 23282,
-    "numLikes": 1709713,
+    "numLikes": 1709788,
     "url": "https://www.instagram.com/p/BsMGDbthyRi",
-    "videoViews": 9900902
+    "videoViews": 9901591
   },
   {
     "id": "1917753547651702968",
     "userId": "1419706373",
     "isVideo": false,
     "numComments": 14694,
-    "numLikes": 1565509,
+    "numLikes": 1565508,
     "url": "https://www.instagram.com/p/BqdOrDehmC4",
     "videoViews": 0
   },
@@ -24,16 +24,16 @@
     "numComments": 19606,
     "numLikes": 1407681,
     "url": "https://www.instagram.com/p/BnaC-b5BqlV",
-    "videoViews": 10313146
+    "videoViews": 10313150
   },
   {
     "id": "1809845643909560034",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 38882,
-    "numLikes": 1339749,
+    "numLikes": 1339747,
     "url": "https://www.instagram.com/p/Bkd3QYvhHbi",
-    "videoViews": 17866450
+    "videoViews": 17866452
   },
   {
     "id": "1891697702081933706",
@@ -42,7 +42,7 @@
     "numComments": 37729,
     "numLikes": 1328727,
     "url": "https://www.instagram.com/p/BpAqQmTBDGK",
-    "videoViews": 8723594
+    "videoViews": 8723603
   },
   {
     "id": "1840217649067838525",
@@ -51,7 +51,7 @@
     "numComments": 21523,
     "numLikes": 1302825,
     "url": "https://www.instagram.com/p/BmJxDOyF8w9",
-    "videoViews": 9697009
+    "videoViews": 9697014
   },
   {
     "id": "1800259569566640384",
@@ -60,50 +60,50 @@
     "numComments": 35915,
     "numLikes": 1238111,
     "url": "https://www.instagram.com/p/Bj7zopThGkA",
-    "videoViews": 12369381
+    "videoViews": 12369382
   },
   {
     "id": "1954713731766448792",
     "userId": "1419706373",
     "isVideo": true,
-    "numComments": 7210,
-    "numLikes": 1229267,
+    "numComments": 7211,
+    "numLikes": 1229282,
     "url": "https://www.instagram.com/p/BsgichThHKY",
-    "videoViews": 6925126
+    "videoViews": 6925440
   },
   {
     "id": "1932258488361437833",
     "userId": "1419706373",
     "isVideo": true,
-    "numComments": 32029,
-    "numLikes": 1226003,
+    "numComments": 32030,
+    "numLikes": 1226005,
     "url": "https://www.instagram.com/p/BrQwtuNBEqJ",
-    "videoViews": 9447631
+    "videoViews": 9447668
   },
   {
     "id": "1924279954577899092",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 13652,
-    "numLikes": 1222911,
+    "numLikes": 1222910,
     "url": "https://www.instagram.com/p/Bq0amxlBT5U",
-    "videoViews": 9831033
+    "videoViews": 9831050
   },
   {
     "id": "1925818866609883755",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 11697,
-    "numLikes": 1222791,
+    "numLikes": 1222789,
     "url": "https://www.instagram.com/p/Bq54g5GBwpr",
-    "videoViews": 10309619
+    "videoViews": 10309640
   },
   {
     "id": "1866483421011023321",
     "userId": "1419706373",
     "isVideo": false,
     "numComments": 7337,
-    "numLikes": 1212400,
+    "numLikes": 1212402,
     "url": "https://www.instagram.com/p/BnnFMhIhJXZ",
     "videoViews": 0
   },
@@ -112,9 +112,9 @@
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 21353,
-    "numLikes": 1207299,
+    "numLikes": 1207300,
     "url": "https://www.instagram.com/p/Bor44bbBjwS",
-    "videoViews": 7697729
+    "videoViews": 7697735
   },
   {
     "id": "1862638028888303072",
@@ -123,43 +123,43 @@
     "numComments": 37140,
     "numLikes": 1174127,
     "url": "https://www.instagram.com/p/BnZa2spBWXg",
-    "videoViews": 8028939
+    "videoViews": 8028942
   },
   {
     "id": "1831491570479002879",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 16533,
-    "numLikes": 1169520,
+    "numLikes": 1169517,
     "url": "https://www.instagram.com/p/Blqw-EzhfT_",
-    "videoViews": 14449665
+    "videoViews": 14449666
   },
   {
     "id": "1886572293967419350",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 29748,
-    "numLikes": 1145467,
+    "numLikes": 1145466,
     "url": "https://www.instagram.com/p/Bouc4GBBZfW",
-    "videoViews": 8812346
+    "videoViews": 8812359
   },
   {
     "id": "1877930374550867256",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 23229,
-    "numLikes": 1137405,
+    "numLikes": 1137406,
     "url": "https://www.instagram.com/p/BoPv7nYBU04",
-    "videoViews": 9585429
+    "videoViews": 9585434
   },
   {
     "id": "1835091443993939343",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 15672,
-    "numLikes": 1101582,
+    "numLikes": 1101581,
     "url": "https://www.instagram.com/p/Bl3jfIRng2P",
-    "videoViews": 14667413
+    "videoViews": 14667418
   },
   {
     "id": "1913428722279872394",
@@ -175,9 +175,9 @@
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 7268,
-    "numLikes": 1070422,
+    "numLikes": 1070423,
     "url": "https://www.instagram.com/p/BoIA1M8BW0G",
-    "videoViews": 8608337
+    "videoViews": 8608341
   },
   {
     "id": "1912701495850539488",
@@ -186,7 +186,7 @@
     "numComments": 20932,
     "numLikes": 1054204,
     "url": "https://www.instagram.com/p/BqLR-Blh5ng",
-    "videoViews": 5931661
+    "videoViews": 5931675
   },
   {
     "id": "1811933401222443465",
@@ -195,25 +195,25 @@
     "numComments": 12680,
     "numLikes": 1051261,
     "url": "https://www.instagram.com/p/BklR9QQh3HJ",
-    "videoViews": 8745555
+    "videoViews": 8745559
   },
   {
     "id": "1956320421746175607",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 17474,
-    "numLikes": 1028603,
+    "numLikes": 1028672,
     "url": "https://www.instagram.com/p/BsmPw79Be53",
-    "videoViews": 7097770
+    "videoViews": 7099524
   },
   {
     "id": "1864843529617279447",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 21799,
-    "numLikes": 1025228,
+    "numLikes": 1025229,
     "url": "https://www.instagram.com/p/BnhQU9QhgnX",
-    "videoViews": 9801316
+    "videoViews": 9801322
   },
   {
     "id": "1889392345888535438",
@@ -222,7 +222,7 @@
     "numComments": 14846,
     "numLikes": 1020679,
     "url": "https://www.instagram.com/p/Bo4eFQCBzOO",
-    "videoViews": 7997063
+    "videoViews": 7997070
   },
   {
     "id": "1893746663911565174",
@@ -231,7 +231,7 @@
     "numComments": 12090,
     "numLikes": 1018584,
     "url": "https://www.instagram.com/p/BpH8I6tB6d2",
-    "videoViews": 7473123
+    "videoViews": 7473132
   },
   {
     "id": "1798177537512616979",
@@ -247,7 +247,7 @@
     "userId": "1419706373",
     "isVideo": false,
     "numComments": 6942,
-    "numLikes": 1013923,
+    "numLikes": 1013924,
     "url": "https://www.instagram.com/p/Bnfd5HbBnSa",
     "videoViews": 0
   },
@@ -256,16 +256,16 @@
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 8430,
-    "numLikes": 996322,
+    "numLikes": 996320,
     "url": "https://www.instagram.com/p/BkloRq1BxJJ",
-    "videoViews": 8528871
+    "videoViews": 8528873
   },
   {
     "id": "1950583180860192037",
     "userId": "1419706373",
     "isVideo": false,
     "numComments": 12200,
-    "numLikes": 994350,
+    "numLikes": 994354,
     "url": "https://www.instagram.com/p/BsR3RGABfUl",
     "videoViews": 0
   },
@@ -276,16 +276,16 @@
     "numComments": 15074,
     "numLikes": 987374,
     "url": "https://www.instagram.com/p/BqYFMwsBiZK",
-    "videoViews": 6706602
+    "videoViews": 6706619
   },
   {
     "id": "1893170324716292219",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 12812,
-    "numLikes": 984495,
+    "numLikes": 984496,
     "url": "https://www.instagram.com/p/BpF5GFABoh7",
-    "videoViews": 9814812
+    "videoViews": 9814822
   },
   {
     "id": "1821622640580092272",
@@ -294,7 +294,7 @@
     "numComments": 20707,
     "numLikes": 980688,
     "url": "https://www.instagram.com/p/BlHtCPmleFw",
-    "videoViews": 9970391
+    "videoViews": 9970393
   },
   {
     "id": "1829447586040046251",
@@ -303,7 +303,7 @@
     "numComments": 11977,
     "numLikes": 980572,
     "url": "https://www.instagram.com/p/BljgOL9HOKr",
-    "videoViews": 9396218
+    "videoViews": 9396220
   },
   {
     "id": "1839521483001468441",
@@ -312,14 +312,14 @@
     "numComments": 9407,
     "numLikes": 978925,
     "url": "https://www.instagram.com/p/BmHSwrnAJYZ",
-    "videoViews": 11473464
+    "videoViews": 11473468
   },
   {
     "id": "1911193213201568141",
     "userId": "1419706373",
     "isVideo": false,
     "numComments": 6433,
-    "numLikes": 978083,
+    "numLikes": 978082,
     "url": "https://www.instagram.com/p/BqF7Bn6BFGN",
     "videoViews": 0
   },
@@ -328,36 +328,36 @@
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 9509,
-    "numLikes": 976352,
+    "numLikes": 976351,
     "url": "https://www.instagram.com/p/Bm7DCKbBWZq",
-    "videoViews": 7367045
+    "videoViews": 7367046
   },
   {
     "id": "1832151995655839288",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 13656,
-    "numLikes": 974858,
+    "numLikes": 974856,
     "url": "https://www.instagram.com/p/BltHIhrlt44",
-    "videoViews": 10158048
+    "videoViews": 10158051
   },
   {
     "id": "1895943592598577950",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 14839,
-    "numLikes": 971919,
+    "numLikes": 971921,
     "url": "https://www.instagram.com/p/BpPvqb_BCMe",
-    "videoViews": 7288677
+    "videoViews": 7288693
   },
   {
     "id": "1951101883137860286",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 14736,
-    "numLikes": 954687,
+    "numLikes": 954691,
     "url": "https://www.instagram.com/p/BsTtNNJByK-",
-    "videoViews": 6738236
+    "videoViews": 6738386
   },
   {
     "id": "1875842567695078349",
@@ -366,16 +366,16 @@
     "numComments": 14712,
     "numLikes": 950960,
     "url": "https://www.instagram.com/p/BoIVOBuBZPN",
-    "videoViews": 10654301
+    "videoViews": 10654302
   },
   {
     "id": "1938817809249474222",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 16931,
-    "numLikes": 943598,
+    "numLikes": 943600,
     "url": "https://www.instagram.com/p/BroEIZ0hBau",
-    "videoViews": 5138281
+    "videoViews": 5138300
   },
   {
     "id": "1903941090969850703",
@@ -384,23 +384,23 @@
     "numComments": 13457,
     "numLikes": 928137,
     "url": "https://www.instagram.com/p/BpsKFWwhxNP",
-    "videoViews": 6232354
+    "videoViews": 6232362
   },
   {
     "id": "1888028778966713692",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 17194,
-    "numLikes": 927145,
+    "numLikes": 927146,
     "url": "https://www.instagram.com/p/BozoCvYBoVc",
-    "videoViews": 6971207
+    "videoViews": 6971217
   },
   {
     "id": "1821451877016254847",
     "userId": "1419706373",
     "isVideo": false,
     "numComments": 9193,
-    "numLikes": 926884,
+    "numLikes": 926883,
     "url": "https://www.instagram.com/p/BlHGNTpBbl_",
     "videoViews": 0
   },
@@ -409,9 +409,9 @@
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 34380,
-    "numLikes": 925700,
+    "numLikes": 925698,
     "url": "https://www.instagram.com/p/Bm1l4XXFNt9",
-    "videoViews": 9024983
+    "videoViews": 9024986
   },
   {
     "id": "1835846183873354512",
@@ -429,7 +429,7 @@
     "numComments": 11849,
     "numLikes": 924517,
     "url": "https://www.instagram.com/p/BkYTCNfh8PO",
-    "videoViews": 7138414
+    "videoViews": 7138416
   },
   {
     "id": "1805377020038164269",
@@ -447,7 +447,7 @@
     "numComments": 13275,
     "numLikes": 921156,
     "url": "https://www.instagram.com/p/BpdS7FXAawC",
-    "videoViews": 5547697
+    "videoViews": 5547713
   },
   {
     "id": "1840202032523673367",
@@ -472,7 +472,7 @@
     "userId": "1419706373",
     "isVideo": false,
     "numComments": 9761,
-    "numLikes": 910543,
+    "numLikes": 910542,
     "url": "https://www.instagram.com/p/BrOQ2bBhK6b",
     "videoViews": 0
   },
@@ -481,27 +481,27 @@
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 16008,
-    "numLikes": 909042,
+    "numLikes": 909043,
     "url": "https://www.instagram.com/p/BoAWRHPBLCZ",
-    "videoViews": 4670481
+    "videoViews": 4670484
   },
   {
     "id": "1951968860454540314",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 24179,
-    "numLikes": 903392,
+    "numLikes": 903396,
     "url": "https://www.instagram.com/p/BsWyVYsBFQa",
-    "videoViews": 5930599
+    "videoViews": 5930730
   },
   {
     "id": "1956120846460671572",
     "userId": "1419706373",
     "isVideo": true,
-    "numComments": 11393,
-    "numLikes": 899915,
+    "numComments": 11395,
+    "numLikes": 899951,
     "url": "https://www.instagram.com/p/BsliYu_BlZU",
-    "videoViews": 6704173
+    "videoViews": 6705342
   },
   {
     "id": "1906316862070066291",
@@ -519,7 +519,7 @@
     "numComments": 21873,
     "numLikes": 886652,
     "url": "https://www.instagram.com/p/BjWOLvUhZCJ",
-    "videoViews": 5665912
+    "videoViews": 5665914
   },
   {
     "id": "1825837773190618599",
@@ -535,34 +535,34 @@
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 7637,
-    "numLikes": 871504,
+    "numLikes": 871509,
     "url": "https://www.instagram.com/p/BsMKwduBNf1",
-    "videoViews": 7119615
+    "videoViews": 7119703
   },
   {
     "id": "1903361596055859887",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 16288,
-    "numLikes": 867739,
+    "numLikes": 867738,
     "url": "https://www.instagram.com/p/BpqGUmEB7Kv",
-    "videoViews": 6164987
+    "videoViews": 6164994
   },
   {
     "id": "1940361726285761593",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 6468,
-    "numLikes": 862270,
+    "numLikes": 862271,
     "url": "https://www.instagram.com/p/BrtjLWnBsw5",
-    "videoViews": 6169974
+    "videoViews": 6170005
   },
   {
     "id": "1813326643180460091",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 9621,
-    "numLikes": 861051,
+    "numLikes": 861050,
     "url": "https://www.instagram.com/p/BkqOvl8hdg7",
     "videoViews": 0
   },
@@ -571,9 +571,9 @@
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 14398,
-    "numLikes": 860451,
+    "numLikes": 860452,
     "url": "https://www.instagram.com/p/BnmlFw5BhuT",
-    "videoViews": 5868667
+    "videoViews": 5868672
   },
   {
     "id": "1861342554529038745",
@@ -582,7 +582,7 @@
     "numComments": 12523,
     "numLikes": 860390,
     "url": "https://www.instagram.com/p/BnU0TEIBYGZ",
-    "videoViews": 7229409
+    "videoViews": 7229411
   },
   {
     "id": "1900342543820936628",
@@ -591,16 +591,16 @@
     "numComments": 17016,
     "numLikes": 859919,
     "url": "https://www.instagram.com/p/BpfX3mkAlW0",
-    "videoViews": 5829996
+    "videoViews": 5830002
   },
   {
     "id": "1874278865992846808",
     "userId": "1419706373",
     "isVideo": true,
     "numComments": 13327,
-    "numLikes": 857010,
+    "numLikes": 857012,
     "url": "https://www.instagram.com/p/BoCxrLBho3Y",
-    "videoViews": 5178502
+    "videoViews": 5178504
   },
   {
     "id": "1827189453188053643",
@@ -609,7 +609,7 @@
     "numComments": 15104,
     "numLikes": 845700,
     "url": "https://www.instagram.com/p/BlbeyB2nTqL",
-    "videoViews": 8774097
+    "videoViews": 8774101
   },
   {
     "id": "1792293984631351461",
@@ -619,14 +619,5 @@
     "numLikes": 845017,
     "url": "https://www.instagram.com/p/BjfgeIPBWil",
     "videoViews": 0
-  },
-  {
-    "id": "1830203190331897055",
-    "userId": "1419706373",
-    "isVideo": true,
-    "numComments": 9766,
-    "numLikes": 844422,
-    "url": "https://www.instagram.com/p/BlmMBrShPTf",
-    "videoViews": 7438395
   }
 ]
