@@ -14,7 +14,7 @@ const writeFileErrorCb = (err) => {
 };
 
 function readInput() {
-  const filepath = path.join(__dirname, `${INPUT_FOLDER}/input.txt`);
+  const filepath = path.join(__dirname, '..', `${INPUT_FOLDER}/input.txt`);
 
   if (fs.existsSync(filepath)) {
     const data = fs.readFileSync(filepath, ENCODING);

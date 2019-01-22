@@ -6,6 +6,7 @@
         "no-console": 0,
         "comma-dangle": 0,
         "prefer-promise-reject-errors": 1,
-        "object-property-newline": 1
+        "object-property-newline": 1,
+        "no-use-before-define": 1
     }
 }

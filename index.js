@@ -24,7 +24,7 @@ const {
   // file utils
   prettyPrintJson, writeToFile, readInput, handleCreateFolder, writeFileErrorCb,
   // index
-  sleep,
+  sleep, randomInt
 } = require('./utils');
 
 
@@ -33,7 +33,7 @@ axios.defaults.headers.common['user-agent'] = USER_AGENT;
 class UserViral {
   constructor() {
     // viral info
-    this.userViral.currScrapeCount = 0;
+    this.currScrapeCount = 0;
     this.posts = [];
     this.viralPosts = [];
     // user info
@@ -88,6 +88,7 @@ function appendPosts(edges) {
 // erm parser is async..?
 function retrieveWebInfoHelper(data, regex) {
   let result = '';
+
   return new Promise((resolve, reject) => {
     const parser = new htmlparser.Parser({
       onopentag(name, attribs) {
@@ -160,7 +161,7 @@ async function getProfileMedia(numMedia, endCursor) {
 // helper to generate promises of followers and following query variables and url
 function calcProfileStatsHelper(operations) {
   return operations.map(({ operation, queryHash }) => {
-    const queryVariables = operation.operation(userViral.userId);
+    const queryVariables = operation(userViral.userId);
     const xInstagramGIS = getInstagramGISHash(userViral.rhxGis, queryVariables);
     const config = {
       headers: {
@@ -213,7 +214,7 @@ function getViralContent() {
     }
   }
   userViral.viralPosts.sort((a, b) => b.numLikes - a.numLikes);
-  console.log(`Number of viral posts: ${userViral.viralPosts.length}`);
+  console.log(`Number of viral posts: ${userViral.viralPosts.length}\n`);
 }
 
 function saveViralContent() {
@@ -237,7 +238,7 @@ function saveViralContent() {
     header,
   });
 
-  csvWriter.writeRecords(userViral.viralPosts)
+  return csvWriter.writeRecords(userViral.viralPosts)
     .then(() => console.log(`Viral posts saved to file: ${filename}`))
     .catch(error => console.log(error));
 }
@@ -291,28 +292,46 @@ async function main() {
     getViralContent();
 
     // 6. Save viral content to file
-    saveViralContent();
+    await saveViralContent();
   } catch (err) {
     apiErrorHandler(err);
   }
 }
 
 async function work() {
-  if (userViral.username) {
-    userViral.init();
+  if (userViral.username !== '') {
     await main();
-    console.log(`Completed work for ${userViral.username}!\n`);
+    console.log(`Completed work for ${userViral.username}!`);
 
-    const wait = Math.floor(Math.random() * 1000) + 200;
-    console.log(`Sleeping for ${wait / 1000} second`);
+    const wait = randomInt(200, 1000);
+    console.log(`Sleeping for ${wait / 1000} second\n`);
 
     await sleep(wait);
   }
 }
 
+async function start() {
+  const rescrape = false;
+  if (!rescrape) {
+    const usernames = readInput();
+
+    for (const username of usernames) {
+      userViral.init();
+      userViral.username = username.trim();
+      await work();
+    }
+  } else {
+    const directories = getDirectories(`${OUTPUT_FOLDER}`);
+    await rescrapeAllUsers(directories);
+  }
+}
+
+start();
+
 // Functions to handle rescraping
 async function rescrapeAllUsers(directories) {
   for (const directory of directories) {
+    userViral.init();
     userViral.username = directory;
     await work();
   }
@@ -331,20 +350,3 @@ function getDirectories(source) {
       return directory.split('/')[1];
     });
 }
-
-async function start() {
-  const rescrape = false;
-  if (!rescrape) {
-    const usernames = readInput();
-
-    for (const username of usernames) {
-      userViral.username = username.trim();
-      await work();
-    }
-  } else {
-    const directories = getDirectories(`${OUTPUT_FOLDER}`);
-    await rescrapeAllUsers(directories);
-  }
-}
-
-start();
