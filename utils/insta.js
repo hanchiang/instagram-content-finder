@@ -1,5 +1,7 @@
 const crypto = require('crypto');
 
+const { BASE_URL } = require('../constants');
+
 // eslint-disable-next-line consistent-return
 const numeralNumberformat = (number) => {
   if (number < 1000) return '0a';
@@ -43,6 +45,13 @@ const apiErrorHandler = (err) => {
   }
   // console.log(err.config);
 };
+
+function httpHeaders(xInstagramGIS, username) {
+  return {
+    'x-instagram-gis': xInstagramGIS,
+    referer: `${BASE_URL}${username}`,
+  };
+}
 
 // queryVariables = stringified JSON
 const getInstagramGISHash = (rhxGis, queryVariables) => crypto
@@ -88,6 +97,6 @@ function getProfileFollowingVariables(userId, num = 12) {
 }
 
 module.exports = {
-  numeralNumberformat, apiErrorHandler, getInstagramGISHash, getProfileVariables,
+  httpHeaders, numeralNumberformat, apiErrorHandler, getInstagramGISHash, getProfileVariables,
   getProfileMediaVariables, getProfileFollowersVariables, getProfileFollowingVariables
 };

@@ -3,8 +3,6 @@ const path = require('path');
 
 const { ENCODING, INPUT_FOLDER } = require('../constants');
 
-const prettyPrintJson = json => JSON.stringify(json, null, 2);
-
 const writeToFile = (filepath, data, cb) => {
   fs.writeFile(filepath, data, cb);
 };
@@ -29,12 +27,10 @@ function handleCreateFolder(paths) {
     if (!fs.existsSync(filepath)) {
       fs.mkdirSync(filepath);
       console.log(`Folder is created at ${filepath}`);
-    } else {
-      console.log(`Folder at ${filepath} already exist.`);
     }
   }
 }
 
 module.exports = {
-  prettyPrintJson, writeToFile, readInput, handleCreateFolder, writeFileErrorCb
+  writeToFile, readInput, handleCreateFolder, writeFileErrorCb
 };

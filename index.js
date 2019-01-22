@@ -12,19 +12,18 @@ const numeral = require('numeral');
 const {
   MOMENT_FORMAT, OUTPUT_FOLDER, INPUT_FOLDER, BASE_URL, POST_URL, GRAPHQL_URL,
   VIRAL_THRESHOLD, NUM_TO_SCRAPE, NUM_TO_CALC_AVERAGE_ENGAGEMENT,
-  PROFILE_MEDIA_QUERY_HASH, PROFILE_FOLLOWERS_QUERY_HASH, PROFILE_FOLLOWING_QUERY_HASH,
+  PROFILE_MEDIA_QUERY_HASH,
   MAX_MEDIA_LIMIT, USER_AGENT
 } = require('./constants');
 
 const {
   // insta utils
   numeralNumberformat, apiErrorHandler,
-  getInstagramGISHash, getProfileMediaVariables, getProfileFollowersVariables,
-  getProfileFollowingVariables,
+  getInstagramGISHash, getProfileMediaVariables, httpHeaders,
   // file utils
-  prettyPrintJson, writeToFile, readInput, handleCreateFolder, writeFileErrorCb,
+  writeToFile, readInput, handleCreateFolder, writeFileErrorCb,
   // index
-  sleep, randomInt
+  prettyPrintJson, sleep, randomInt, parseJson
 } = require('./utils');
 
 
@@ -44,7 +43,13 @@ class UserViral {
     this.numFollowing = 0;
     this.averageLikes = 0;
     this.averageComments = 0;
+    this.medianLikes = 0;
+    this.medianComments = 0;
     this.rhxGis = '';
+    // from window._sharedData object in user profile page
+    this.userSharedData = {};
+    // User-specific data from userSharedData
+    this.userWebData = {};
   }
 
   init() {
@@ -58,7 +63,11 @@ class UserViral {
     this.numFollowing = 0;
     this.averageLikes = 0;
     this.averageComments = 0;
+    this.medianLikes = 0;
+    this.medianComments = 0;
     this.rhxGis = '';
+    this.userSharedData = {};
+    this.userWebData = {};
   }
 }
 
@@ -86,32 +95,46 @@ function appendPosts(edges) {
 }
 
 // erm parser is async..?
-function retrieveWebInfoHelper(data, regex) {
-  let result = '';
-
+/**
+ *
+ * @param {string} data
+ */
+function retrieveWebInfoHelper(data) {
   return new Promise((resolve, reject) => {
+    let seenSharedData = false;
+
     const parser = new htmlparser.Parser({
       onopentag(name, attribs) {
         // eslint-disable-next-line no-empty
         if (name === 'script' && attribs.type === 'text/javascript') { }
       },
-      ontext(text) {
-        const textToScan = 'window._sharedData';
+      async ontext(text) {
+        const textToScan = 'window._sharedData = ';
         if (text.substring(0, textToScan.length) === textToScan) {
-          const matchResult = text.match(regex);
-          if (matchResult) {
-            // eslint-disable-next-line prefer-destructuring
-            result = matchResult[1];
-            // console.log(`regex '${regex}' matched: ${result}`);
-            resolve(result);
+          const regex = /window\._sharedData = (.*);/;
+          const match = text.match(regex);
+          if (match) {
+            const json = await parseJson(match[1]);
+            seenSharedData = true;
+            userViral.userSharedData = json;
+            userViral.userWebData = json.entry_data.ProfilePage[0].graphql.user;
+
+            userViral.rhxGis = json.rhx_gis;
+            userViral.userId = userViral.userWebData.id;
+            userViral.numPosts = userViral.userWebData.edge_owner_to_timeline_media.count;
+            userViral.numFollowers = userViral.userWebData.edge_followed_by.count;
+            userViral.numFollowing = userViral.userWebData.edge_follow.count;
+            writeToFile('user_web_data_sample.txt', prettyPrintJson(userViral.userWebData), writeFileErrorCb);
+            resolve();
           } else {
-            // console.log(`The pattern ${regex} is not found in text`);
-            reject(result);
+            reject("Oops! Unable to find user's web data");
           }
         }
       },
       onend() {
-        reject('Not matched');
+        if (seenSharedData) {
+          reject('Not matched');
+        }
       }
     });
     parser.write(data);
@@ -119,22 +142,13 @@ function retrieveWebInfoHelper(data, regex) {
   });
 }
 
-// Retrieves rhx_gis and id of the user in 'window._sharedData' of the html source
 // data = profile page's `response.data` from axios
-async function retrieveWebInfo(data) {
-  const result = {};
-  const regexToRetrieve = [/"id":"(\d+)",/, /"rhx_gis":"([A-Za-z0-9]+)"/];
-
+async function retrieveUserWebInfo(data) {
   try {
-    const res = await Promise.all([
-      retrieveWebInfoHelper(data, regexToRetrieve[0]),
-      retrieveWebInfoHelper(data, regexToRetrieve[1])
-    ]);
-    [result.id, result.rhx_gis] = res;
-    return result;
+    await retrieveWebInfoHelper(data);
   } catch (err) {
     console.log(err);
-    throw new Error('Oops! Unable to retrieve user info(id, rhx_gis)');
+    throw new Error('Oops! Error occurred while retrieving user web info');
   }
 }
 
@@ -146,10 +160,7 @@ async function getProfileMedia(numMedia, endCursor) {
   // https://www.instagram.com/graphql/query/?query_hash=${hash}&variables=${encoded JSON string variables}
   const url = `${GRAPHQL_URL}query_hash=${PROFILE_MEDIA_QUERY_HASH}&variables=${encodeURIComponent(queryVariables)}`;
   const config = {
-    headers: {
-      'x-instagram-gis': xInstagramGIS,
-      // 'referrer': `${BASE_URL}${username}`
-    }
+    headers: httpHeaders(xInstagramGIS, userViral.username)
   };
   const res = await axios.get(url, config);
   writeToFile('profile_media_sample.txt', prettyPrintJson(res.data), writeFileErrorCb);
@@ -158,39 +169,33 @@ async function getProfileMedia(numMedia, endCursor) {
   return edgeOwnerToTimelineMedia;
 }
 
-// helper to generate promises of followers and following query variables and url
-function calcProfileStatsHelper(operations) {
-  return operations.map(({ operation, queryHash }) => {
-    const queryVariables = operation(userViral.userId);
-    const xInstagramGIS = getInstagramGISHash(userViral.rhxGis, queryVariables);
-    const config = {
-      headers: {
-        'x-instagram-gis': xInstagramGIS,
-        referer: `${BASE_URL}${userViral.username}`,
-      }
-    };
-    const url = `${GRAPHQL_URL}query_hash=${queryHash}&variables=${encodeURIComponent(queryVariables)}`;
-    return axios.get(url, config);
-  });
+async function downloadPosts() {
+  console.log(`Accessing media data of user: ${userViral.username}`);
+
+  const result = await getProfileMedia(MAX_MEDIA_LIMIT, '');
+
+  let { page_info: pageInfo, edges } = result;
+  // userViral.numPosts = count;
+  userViral.currScrapeCount += edges.length;
+  appendPosts(edges);
+  console.log(`${userViral.username} has ${userViral.numPosts} posts!`);
+  console.log('Current scrape count:', userViral.currScrapeCount);
+
+  while (pageInfo.has_next_page && userViral.currScrapeCount < NUM_TO_SCRAPE) {
+    const wait = randomInt(100, 400);
+    console.log(`Sleeping for ${wait / 1000} seconds`);
+    await sleep(wait);
+
+    ({ page_info: pageInfo, edges } = await getProfileMedia(MAX_MEDIA_LIMIT, pageInfo.end_cursor));
+    userViral.currScrapeCount += edges.length;
+    appendPosts(edges);
+    console.log('Current scrape count:', userViral.currScrapeCount);
+  }
+  console.log(`Number of media scraped: ${userViral.currScrapeCount}\n`);
 }
 
 // Calculate average engagement of 12 most recent posts
 async function calcProfileStats() {
-  const [followerRes, followingRes] = await Promise.all(
-    calcProfileStatsHelper([{
-      operation: getProfileFollowersVariables,
-      queryHash: PROFILE_FOLLOWERS_QUERY_HASH,
-    }, {
-      operation: getProfileFollowingVariables,
-      queryHash: PROFILE_FOLLOWING_QUERY_HASH,
-    },
-    ])
-  );
-  writeToFile('profile_followers.sample.txt', prettyPrintJson(followerRes.data), writeFileErrorCb);
-  writeToFile('profile_following.sample.txt', prettyPrintJson(followingRes.data), writeFileErrorCb);
-  userViral.numFollowers = followerRes.data.data.user.edge_followed_by.count;
-  userViral.numFollowing = followingRes.data.data.user.edge_follow.count;
-
   let totalLikes = 0;
   let totalComments = 0;
 
@@ -243,7 +248,6 @@ function saveViralContent() {
     .catch(error => console.log(error));
 }
 
-
 async function main() {
   handleCreateFolder([path.join(__dirname, `${INPUT_FOLDER}`), path.join(__dirname, `${OUTPUT_FOLDER}`)]);
 
@@ -254,38 +258,27 @@ async function main() {
 
     // 2. Scrape `id` and `rhx_gis` from profile that is stored in 'window._sharedData' in the html source
     console.log(`Retrieving info of user: ${userViral.username}`);
-    res = await retrieveWebInfo(res.data);
-    const { id, rhx_gis: rhxGis } = res;
-    userViral.userId = id;
-    userViral.rhxGis = rhxGis;
-    console.log(`id: ${userViral.userId}, rhx_gis: ${userViral.rhxGis}\n`);
+    res = await retrieveUserWebInfo(res.data);
 
-    // 3. Make graphql request to get media data of a profile and append to `posts`
-    console.log(`Accessing media data of user: ${userViral.username}`);
-
-    const result = await getProfileMedia(MAX_MEDIA_LIMIT, '');
-    const { count } = result;
-    let { page_info: pageInfo, edges } = result;
-    userViral.numPosts = count;
-    userViral.currScrapeCount += edges.length;
-    appendPosts(edges);
-    console.log(`${userViral.username} has ${userViral.numPosts} posts!`);
-    console.log('Current scrape count:', userViral.currScrapeCount);
-
-    while (pageInfo.has_next_page && userViral.currScrapeCount < NUM_TO_SCRAPE) {
-      ({ page_info: pageInfo, edges } = await getProfileMedia(MAX_MEDIA_LIMIT, pageInfo.end_cursor));
-      userViral.currScrapeCount += edges.length;
-      appendPosts(edges);
-      console.log('Current scrape count:', userViral.currScrapeCount);
+    if (userViral.userWebData.is_private) {
+      console.log(`User '${userViral.username}' is private. Skipping...`);
+      return;
     }
-
-    console.log(`Number of media scraped: ${userViral.currScrapeCount}\n`);
-    // 4. Calculate profile stats
-
-    if (userViral.currScrapeCount < NUM_TO_CALC_AVERAGE_ENGAGEMENT) {
+    if (userViral.numPosts === 0) {
+      console.log(`User has ${userViral.numPosts} posts. Skipping...`);
+      return;
+    }
+    if (userViral.numPosts < NUM_TO_CALC_AVERAGE_ENGAGEMENT) {
       console.log(`Did not meet minimum of ${NUM_TO_CALC_AVERAGE_ENGAGEMENT} posts. Skipping..`);
       return;
     }
+
+    console.log(`id: ${userViral.userId}, rhx_gis: ${userViral.rhxGis}\n`);
+
+    // 3. Make graphql request to get media data of a profile and append to `posts`
+    await downloadPosts();
+
+    // 4. Calculate profile stats
     await calcProfileStats();
 
     // 5. Get viral content
@@ -302,11 +295,6 @@ async function work() {
   if (userViral.username !== '') {
     await main();
     console.log(`Completed work for ${userViral.username}!`);
-
-    const wait = randomInt(200, 1000);
-    console.log(`Sleeping for ${wait / 1000} second\n`);
-
-    await sleep(wait);
   }
 }
 
@@ -318,6 +306,10 @@ async function start() {
     for (const username of usernames) {
       userViral.init();
       userViral.username = username.trim();
+
+      const wait = randomInt(200, 1000);
+      console.log(`Sleeping for ${wait / 1000} second\n`);
+      await sleep(wait);
       await work();
     }
   } else {

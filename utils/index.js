@@ -5,14 +5,22 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// scale random range [0, 1) by given number of seconds
-function randomInt(min = 0, scale = 1000) {
-  return Math.floor(Math.random() * scale + min);
+// min, max in milliseconds
+function randomInt(min = 100, max) {
+  return Math.round(Math.random() * (max - min) + min);
 }
+
+const prettyPrintJson = json => JSON.stringify(json, null, 2);
+
+const parseJson = jsonString => new Promise(
+  resolve => setTimeout(resolve(JSON.parse(jsonString)), 0)
+);
 
 module.exports = {
   ...instaUtils,
   ...fileUtils,
   sleep,
-  randomInt
+  randomInt,
+  prettyPrintJson,
+  parseJson
 };
