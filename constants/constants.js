@@ -1,6 +1,6 @@
 
 const ENCODING = 'utf8';
-const MOMENT_FORMAT = 'YYYYMMDD-HHmmss';
+const MOMENT_FORMAT = 'YYYYMMDD-HH:mm:ss';
 const USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
 
 const OUTPUT_FOLDER = 'output';

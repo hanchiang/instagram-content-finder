@@ -2,14 +2,6 @@ const crypto = require('crypto');
 
 const { BASE_URL } = require('../constants');
 
-// eslint-disable-next-line consistent-return
-const numeralNumberformat = (number) => {
-  if (number < 1000) return '0a';
-  if (number < 10000) return '0.0a';
-  if (number < 1000000) return '0a';
-  if (number >= 1000000) return '0.0a';
-};
-
 const apiErrorHandler = (err) => {
   if (err.response) {
     // The request was made and the server responded with a status code
@@ -96,6 +88,6 @@ function getProfileFollowingVariables(userId, num = 12) {
 }
 
 module.exports = {
-  httpHeaders, numeralNumberformat, apiErrorHandler, getInstagramGISHash, getProfileVariables,
+  httpHeaders, apiErrorHandler, getInstagramGISHash, getProfileVariables,
   getProfileMediaVariables, getProfileFollowersVariables, getProfileFollowingVariables
 };
