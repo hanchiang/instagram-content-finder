@@ -1,3 +1,12 @@
 language: node_js
 node_js:
   - "lts/*"
+notifications:
+  slack: 
+    rooms:
+      - yaphc-site:xn8Vi1cYFvPpHbsDMBEqoW3y#insta-content-cli
+    on_success: always
+    on_failure: always
+    template:
+      - "%{repository_slug} (%{commit}) : %{message} %{foo} "
+      - "Build details: %{build_url}"
