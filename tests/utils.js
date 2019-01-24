@@ -4,8 +4,6 @@ const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
 
-const { expect } = require('chai');
-
 const fileUtils = require('../utils/file');
 
 const access = promisify(fs.access);
@@ -29,6 +27,11 @@ async function cleanupFiles() {
 }
 
 describe('Utils tests', () => {
+  after(async () => {
+    await cleanupFolders();
+    await cleanupFiles();
+  });
+
   describe('Utils file tests', () => {
     it('should read input file correctly', () => {
       fileUtils.readInput();
@@ -56,10 +59,5 @@ describe('Utils tests', () => {
       await access(path.join(__dirname, folderpath[0]));
       await access(path.join(__dirname, folderpath[1]));
     });
-  });
-
-  after(async () => {
-    await cleanupFolders();
-    await cleanupFiles();
   });
 });

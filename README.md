@@ -24,8 +24,6 @@
   * display list of followers who are inactive
   * provide an option to unfollow
 * Tests
-* CI
-
 
 ## Notes
 rhx_gis seems to be the same for every user

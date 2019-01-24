@@ -42,6 +42,4 @@ class UserViral {
   }
 }
 
-const userViral = new UserViral();
-
-module.exports = userViral;
+module.exports = UserViral;
