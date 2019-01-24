@@ -1,3 +1,5 @@
+/* eslint-disable object-property-newline */
+
 const crypto = require('crypto');
 
 const { BASE_URL } = require('../constants');

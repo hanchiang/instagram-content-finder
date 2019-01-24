@@ -1,4 +1,4 @@
-/* eslint-disable no-await-in-loop */
+/* eslint-disable no-await-in-loop, arrow-parens */
 
 const fs = require('fs');
 const { promisify } = require('util');

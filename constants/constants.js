@@ -1,3 +1,4 @@
+/* eslint-disable object-property-newline */
 
 const ENCODING = 'utf8';
 const MOMENT_FORMAT = 'YYYYMMDD-HH:mm:ss';
