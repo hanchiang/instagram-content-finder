@@ -3,29 +3,66 @@
 const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
+const { expect } = require('chai');
 
 const fileUtils = require('../utils/file');
+const { ENCODING } = require('../constants');
 
+// Promisified functions
 const access = promisify(fs.access);
 const rmdir = promisify(fs.rmdir);
 const unlink = promisify(fs.unlink);
+const writeFile = promisify(fs.writeFile);
+const readFile = promisify(fs.readFile);
 
 // Files and folders created during testing
-const folderpath = ['folder1', 'folder2', 'folder3'];
-const filepath = 'testing.txt';
+const outputfile = 'output.txt';
+const inputfile = 'input.txt';
+const filepaths = [inputfile, outputfile];
+const folderpaths = ['folder1', 'folder2', 'folder3'];
 
 async function cleanupFolders() {
-  for (const p of folderpath) {
+  for (const p of folderpaths) {
     await access(path.join(__dirname, p));
     await rmdir(path.join(__dirname, p));
   }
 }
 
 async function cleanupFiles() {
-  await access(path.join(__dirname, filepath));
-  await unlink(path.join(__dirname, filepath));
+  for (const f of filepaths) {
+    await access(path.join(__dirname, f));
+    await unlink(path.join(__dirname, f));
+  }
 }
 
+/**
+ *
+ * @param {string} p file path
+ * @param {string} data
+ */
+function writeToFile(p, data) {
+  return writeFile(p, data)
+    .then(() => {})
+    .catch(err => { throw err; });
+}
+
+/**
+ *
+ * @param {string} p file path
+ */
+async function readFromFile(p) {
+  try {
+    await access(p);
+    const data = await readFile(p, ENCODING);
+    return data.split('\n');
+  } catch (err) {
+    throw new Error(`Oops! File at ${p} does not exist.`);
+  }
+}
+
+/**
+ * Main test suite
+ */
 describe('Utils tests', () => {
   after(async () => {
     await cleanupFolders();
@@ -33,31 +70,34 @@ describe('Utils tests', () => {
   });
 
   describe('Utils file tests', () => {
-    it('should read input file correctly', () => {
-      fileUtils.readInput();
+    it('should read input file correctly', async () => {
+      const filepath = path.join(__dirname, inputfile);
+      const writeContent = 'Hi there!';
+      await writeToFile(filepath, writeContent);
+
+      const data = await fileUtils.readInput(filepath);
+      expect(data).to.eql([writeContent]);
     });
 
-    it('Should write to file correctly', (done) => {
-      const writeToPath = path.join(__dirname, filepath);
+    it('Should write to file correctly', async () => {
+      const filepath = path.join(__dirname, outputfile);
+      const writeContent = 'Hello world!';
 
-      fileUtils.writeToFile(writeToPath, 'Hello world!')
-        .then(() => {
-          access(writeToPath)
-            .then(done)
-            .catch(err => { throw err; });
-        });
+      await fileUtils.writeToFile(filepath, writeContent);
+      const data = await readFromFile(filepath);
+      expect(data).to.eql([writeContent]);
     });
 
     it('should create one output folder', async () => {
-      await fileUtils.handleCreateFolder([path.join(__dirname, folderpath[0])]);
-      await access(path.join(__dirname, folderpath[0]));
+      await fileUtils.handleCreateFolder([path.join(__dirname, folderpaths[0])]);
+      await access(path.join(__dirname, folderpaths[0]));
     });
 
     it('should create multiple output folders', async () => {
-      await fileUtils.handleCreateFolder([path.join(__dirname, folderpath[1]),
-        path.join(__dirname, folderpath[2])]);
-      await access(path.join(__dirname, folderpath[0]));
-      await access(path.join(__dirname, folderpath[1]));
+      await fileUtils.handleCreateFolder([path.join(__dirname, folderpaths[1]),
+        path.join(__dirname, folderpaths[2])]);
+      await access(path.join(__dirname, folderpaths[0]));
+      await access(path.join(__dirname, folderpaths[1]));
     });
   });
 });

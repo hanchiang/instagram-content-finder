@@ -1,29 +1,34 @@
 /* eslint-disable no-await-in-loop */
 
 const fs = require('fs');
-const path = require('path');
 const { promisify } = require('util');
 
 const numeral = require('numeral');
 const moment = require('moment');
 
-const { ENCODING, INPUT_FOLDER, MOMENT_FORMAT } = require('../constants');
+const { ENCODING, MOMENT_FORMAT } = require('../constants');
 
 const access = promisify(fs.access);
+const writeFile = promisify(fs.writeFile);
 const readFile = promisify(fs.readFile);
 const mkdir = promisify(fs.mkdir);
 
+/**
+ *
+ * @param {string} filepath
+ * @param {string} data
+ */
 function writeToFile(filepath, data) {
-  const writeFile = promisify(fs.writeFile);
-
   return writeFile(filepath, data)
     .then(() => console.log(`Written to file: ${filepath}`))
     .catch(err => { throw err; });
 }
 
-async function readInput() {
-  const filepath = path.join(__dirname, '..', `${INPUT_FOLDER}/input.txt`);
-
+/**
+ *
+ * @param {string} filepath
+ */
+async function readInput(filepath) {
   try {
     await access(filepath);
     const data = await readFile(filepath, ENCODING);

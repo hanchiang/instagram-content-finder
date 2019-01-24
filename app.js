@@ -260,7 +260,8 @@ async function main() {
   await handleCreateFolder([path.join(__dirname, `${INPUT_FOLDER}`), path.join(__dirname, `${OUTPUT_FOLDER}`)]);
 
   if (!rescrape) {
-    const usernames = await readInput();
+    const inputfile = path.join(__dirname, `${INPUT_FOLDER}/input.txt`);
+    const usernames = await readInput(inputfile);
 
     for (const username of usernames) {
       userViral.init();
