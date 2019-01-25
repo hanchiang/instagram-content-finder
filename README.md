@@ -25,7 +25,6 @@
   * display list of followers who are inactive
   * provide an option to unfollow
 * Tests
-* To get more info from the API, need to send authenticated request
 
 ## Notes
 rhx_gis seems to be the same for every user
