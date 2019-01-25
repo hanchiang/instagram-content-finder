@@ -18,3 +18,10 @@ yarn-error.log*
 output/
 input/*
 !input/.gitkeep
+
+# generated sample files
+image_post_sample.txt
+profile_media_sample.txt
+user_web_data_sample.txt
+video_post_sample.txt
+viral_posts_sample.txt

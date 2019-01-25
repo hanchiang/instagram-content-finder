@@ -8,11 +8,12 @@
 ## Features
 * If page is private, skip
 * If page has fewer than a certain number of posts, skip.
+* Use number of likes as the metric for extracting viral posts. Optionally, comments can be used also.
 
 **Configurable**  
 * `NUM_TO_SCRAPE`: Number of posts to scrape
-* `NUM_TO_CALC_AVERAGE_ENGAGEMENT`: Number to posts to use for calculating the average engagement rate of a user
-* `VIRAL_THRESHOLD`: The fraction of engagement that must be greater than the average engagement in order for a post to be considered as viral. e.g. `0.5 = 1.5 * average_engagement`
+* `NUM_TO_CALC_AVERAGE_ENGAGEMENT`: Number to posts to use for calculating the median engagement rate of a user
+* `VIRAL_THRESHOLD`: The fraction of engagement that must be greater than the median engagement in order for a post to be considered as viral. e.g. `0.5 = (1 + 0.5) * median_engagement`
 * `MIN_FOLLOWER`: *TBD*
 * `MIN_POSTS`: *TBD*
 
@@ -24,6 +25,7 @@
   * display list of followers who are inactive
   * provide an option to unfollow
 * Tests
+* To get more info from the API, need to send authenticated request
 
 ## Notes
 rhx_gis seems to be the same for every user

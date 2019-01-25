@@ -13,9 +13,10 @@ class UserViral {
     this.numFollowing = 0;
     this.averageLikes = 0;
     this.averageComments = 0;
-    // TODO:
     this.medianLikes = 0;
     this.medianComments = 0;
+    this.totalLikes = 0;
+    this.totalComments = 0;
     this.rhxGis = '';
     // from window._sharedData object in user profile page
     this.userSharedData = {};
@@ -36,6 +37,8 @@ class UserViral {
     this.averageComments = 0;
     this.medianLikes = 0;
     this.medianComments = 0;
+    this.totalLikes = 0;
+    this.totalComments = 0;
     this.rhxGis = '';
     this.userSharedData = {};
     this.userWebData = {};

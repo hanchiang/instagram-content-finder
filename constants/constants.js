@@ -14,9 +14,9 @@ const GRAPHQL_URL = 'https://www.instagram.com/graphql/query/?';
 const QUERY_ID = '17888483320059182';
 
 // App constants
-const VIRAL_THRESHOLD = 0.5;
+const VIRAL_THRESHOLD = 1;
 const NUM_TO_SCRAPE = 400;
-const NUM_TO_CALC_AVERAGE_ENGAGEMENT = 12;
+const NUM_TO_CALC_AVERAGE_ENGAGEMENT = 20;
 const MIN_FOLLOWER = 15000;
 const MIN_POSTS = 100;
 

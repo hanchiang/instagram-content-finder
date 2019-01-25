@@ -35,20 +35,7 @@ const userViral = new UserViral();
 function appendPosts(edges) {
   for (const edge of edges) {
     const { node } = edge;
-    const post = {
-      id: node.id,
-      userId: node.owner.id,
-      isVideo: node.is_video,
-      numComments: node.edge_media_to_comment.count,
-      numLikes: node.edge_media_preview_like.count,
-      url: `${POST_URL}${node.shortcode}`
-    };
-    if (node.is_video) {
-      post.videoViews = node.video_view_count;
-    } else {
-      post.videoViews = 0;
-    }
-    userViral.posts.push(post);
+    userViral.posts.push(node);
   }
 }
 
@@ -112,6 +99,14 @@ async function retrieveUserWebInfo(data) {
   }
 }
 
+function getSinglePostByType(isVideo = false) {
+  return userViral.posts.find(post => {
+    if (isVideo === post.is_video) {
+      return post;
+    }
+  });
+}
+
 /**
  * Instagram's graphql endpoint for getting user's media
  * @param {int} numMedia
@@ -138,6 +133,7 @@ async function downloadPosts() {
 
   let { page_info: pageInfo, edges } = posts;
   userViral.currScrapeCount += edges.length;
+
   appendPosts(edges);
   console.log(`${userViral.username} has ${userViral.numPosts} posts!`);
   console.log('Current scrape count:', userViral.currScrapeCount);
@@ -149,32 +145,53 @@ async function downloadPosts() {
 
     result = await getProfileMedia(MAX_MEDIA_LIMIT, pageInfo.end_cursor);
     ({ page_info: pageInfo, edges } = result.data.user.edge_owner_to_timeline_media);
+
     userViral.currScrapeCount += edges.length;
     appendPosts(edges);
     console.log('Current scrape count:', userViral.currScrapeCount);
   }
   console.log(`Number of media scraped: ${userViral.currScrapeCount}\n`);
-  writeToFile('profile_media_sample.txt', result);
+  writeToFile('profile_media_sample.txt', prettyPrintJson(result));
+  writeToFile('image_post_sample.txt', prettyPrintJson(getSinglePostByType()));
+  writeToFile('video_post_sample.txt', prettyPrintJson(getSinglePostByType(true)));
 }
 
 /**
- * Calculate average engagement of 12 most recent posts
+ * Calculate average and median engagement of specified most recent posts
  */
 async function calcProfileStats() {
   let totalLikes = 0;
   let totalComments = 0;
+  const likes = [];
+  const comments = [];
 
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < NUM_TO_CALC_AVERAGE_ENGAGEMENT; i++) {
-    totalLikes += userViral.posts[i].numLikes;
-    totalComments += userViral.posts[i].numComments;
+    totalLikes += userViral.posts[i].edge_media_preview_like.count;
+    totalComments += userViral.posts[i].edge_media_to_comment.count;
+    likes.push(userViral.posts[i].edge_media_preview_like.count);
+    comments.push(userViral.posts[i].edge_media_to_comment.count);
   }
+  userViral.totalLikes = totalLikes;
+  userViral.totalComments = totalComments;
   userViral.averageLikes = totalLikes / NUM_TO_CALC_AVERAGE_ENGAGEMENT;
   userViral.averageComments = totalComments / NUM_TO_CALC_AVERAGE_ENGAGEMENT;
 
+  // get median
+  likes.sort((a, b) => a - b);
+  comments.sort((a, b) => a - b);
+  [userViral.medianLikes, userViral.medianComments] = [likes, comments].map(arr => {
+    const len = arr.length;
+    if (len % 2 === 0) {
+      return (arr[len / 2 - 1] + arr[len / 2]) / 2;
+    }
+    return arr[len / 2];
+  });
+
   console.log(`Statistics for ${userViral.username}.\nFollowers: ${userViral.numFollowers}. \
   Following: ${userViral.numFollowing}. Average likes: ${userViral.averageLikes}, \
-  Average comments: ${userViral.averageComments}`);
+  Average comments: ${userViral.averageComments}, Median likes: ${userViral.medianLikes}, \
+  Median comments: ${userViral.medianComments}`);
 }
 
 /**
@@ -182,8 +199,24 @@ async function calcProfileStats() {
  */
 function getViralContent() {
   for (const post of userViral.posts) {
-    if (post.numLikes > (1 + VIRAL_THRESHOLD) * userViral.averageLikes) {
-      userViral.viralPosts.push(post);
+    const viral = {
+      id: post.id,
+      userId: post.owner.id,
+      isVideo: post.is_video,
+      numComments: post.edge_media_to_comment.count,
+      numLikes: post.edge_media_preview_like.count,
+      url: `${POST_URL}${post.shortcode}`,
+      thumbnailSrc: post.display_url,
+      captions: post.edge_media_to_caption.edges,
+      commentsDisabled: post.comments_disabled,
+      takenAt: post.taken_at_timestamp,
+      dimension: post.dimensions,
+    };
+    if (post.is_video) {
+      viral.videoViews = post.video_view_count;
+    }
+    if (post.edge_media_preview_like.count > (1 + VIRAL_THRESHOLD) * userViral.medianLikes) {
+      userViral.viralPosts.push(viral);
     }
   }
   userViral.viralPosts.sort((a, b) => b.numLikes - a.numLikes);
