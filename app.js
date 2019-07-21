@@ -29,7 +29,7 @@ axios.defaults.headers.common['user-agent'] = USER_AGENT;
 const userViral = new UserViral();
 
 /**
- * Adds post to list of viral posts
+ * Adds post to list of posts
  * @param {array} edges
  */
 function appendPosts(edges) {
@@ -68,6 +68,7 @@ function retrieveUserWebInfoHelper(data) {
             userViral.numPosts = userViral.userWebData.edge_owner_to_timeline_media.count;
             userViral.numFollowers = userViral.userWebData.edge_followed_by.count;
             userViral.numFollowing = userViral.userWebData.edge_follow.count;
+            await writeToFile('user_shared_data_sample.txt', prettyPrintJson(json));
             await writeToFile('user_web_data_sample.txt', prettyPrintJson(userViral.userWebData));
             resolve();
           } else {
@@ -99,6 +100,10 @@ async function retrieveUserWebInfo(data) {
   }
 }
 
+/**
+ *
+ * @param {boolean} isVideo
+ */
 function getSinglePostByType(isVideo = false) {
   return userViral.posts.find(post => {
     if (isVideo === post.is_video) {
@@ -159,7 +164,7 @@ async function downloadPosts() {
 /**
  * Calculate average and median engagement of specified most recent posts
  */
-async function calcProfileStats() {
+function calcProfileStats() {
   let totalLikes = 0;
   let totalComments = 0;
   const likes = [];
@@ -211,6 +216,7 @@ function getViralContent() {
       commentsDisabled: post.comments_disabled,
       takenAt: post.taken_at_timestamp,
       dimension: post.dimensions,
+      location: post.location
     };
     if (post.is_video) {
       viral.videoViews = post.video_view_count;
@@ -230,6 +236,7 @@ async function saveViralContent() {
     { id: 'numLikes', title: 'Likes' },
     { id: 'numComments', title: 'Comments' },
     { id: 'url', title: 'Url' },
+    { id: 'thumbnailSrc', title: 'Thumbnail' }
   ];
 
   await handleCreateFolder([path.join(__dirname, OUTPUT_FOLDER, userViral.username)]);
@@ -273,7 +280,7 @@ async function work() {
     await downloadPosts();
 
     // 4. Calculate profile stats
-    await calcProfileStats();
+    calcProfileStats();
 
     // 5. Get viral content
     getViralContent();
@@ -288,6 +295,9 @@ async function work() {
 }
 
 
+/**
+ * Main function for the script
+ */
 async function main() {
   const rescrape = false;
   await handleCreateFolder([path.join(__dirname, `${INPUT_FOLDER}`), path.join(__dirname, `${OUTPUT_FOLDER}`)]);

@@ -1,9 +1,10 @@
 ## Usage
-1. Put usernames in `server/input/input.txt`, one username per line. Create `input.txt` if it doesn't exist.
-2. Make sure [nodejs](https://nodejs.org/en/download/) is installed
-3. Install project dependencies: `npm install`
-4. Run `node server/index.js`
-5. See the output in `server/output`. Each username has its own folder, with file name is the following format: `{numFollowers}-{averageLikes}-{averageComments}-(YYYYMMDD-HHmmss)`
+1. Clone the repository: `git clone https://github.com/hanchiang/instagram-content-finder.git`. Install [git](https://git-scm.com/downloads) if it is not already installed
+1. Put the instagram usernames in `input/input.txt`, one username per line. Create `input.txt` if it doesn't exist.
+1. Make sure [nodejs](https://nodejs.org/en/download/) is installed
+1. Install project dependencies: `npm install`
+1. Run `node index.js`
+1. See the output in `output`. Each username has its own folder, with file name is the following format: `{numFollowers}-{averageLikes}-{averageComments}-(YYYYMMDD-HHmmss)`
 
 ## Features
 * If page is private, skip
@@ -25,6 +26,7 @@
   * display list of followers who are inactive
   * provide an option to unfollow
 * Tests
+* Refactor spaghetti code
 
 ## Notes
 rhx_gis seems to be the same for every user
