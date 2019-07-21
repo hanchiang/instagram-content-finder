@@ -62,10 +62,7 @@ const numeralNumberformat = (number) => {
 };
 
 function getOutputFilePath(numFollowers, averageLikes, averageComments) {
-  return `${numeral(numFollowers).format(numeralNumberformat(numFollowers))}-\
-  ${numeral(Math.round(averageLikes)).format(numeralNumberformat(averageLikes))}-\
-  ${numeral(Math.round(averageComments)).format(numeralNumberformat(averageComments))}-\
-  ${moment().format(MOMENT_FORMAT)}`;
+  return `${numeral(numFollowers).format(numeralNumberformat(numFollowers))}-${numeral(Math.round(averageLikes)).format(numeralNumberformat(averageLikes))}-${numeral(Math.round(averageComments)).format(numeralNumberformat(averageComments))}-${moment().format(MOMENT_FORMAT)}.csv`;
 }
 
 module.exports = {

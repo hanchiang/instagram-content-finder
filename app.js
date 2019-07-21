@@ -68,7 +68,9 @@ function retrieveUserWebInfoHelper(data) {
             userViral.numPosts = userViral.userWebData.edge_owner_to_timeline_media.count;
             userViral.numFollowers = userViral.userWebData.edge_followed_by.count;
             userViral.numFollowing = userViral.userWebData.edge_follow.count;
+            // Under `window._sharedData` in profile page(View source)
             await writeToFile('user_shared_data_sample.txt', prettyPrintJson(json));
+            // User public account info
             await writeToFile('user_web_data_sample.txt', prettyPrintJson(userViral.userWebData));
             resolve();
           } else {
@@ -211,7 +213,7 @@ function getViralContent() {
       numComments: post.edge_media_to_comment.count,
       numLikes: post.edge_media_preview_like.count,
       url: `${POST_URL}${post.shortcode}`,
-      thumbnailSrc: post.display_url,
+      mediaSource: post.is_video ? post.video_url : post.display_url,
       captions: post.edge_media_to_caption.edges,
       commentsDisabled: post.comments_disabled,
       takenAt: post.taken_at_timestamp,
@@ -233,10 +235,11 @@ async function saveViralContent() {
   await writeToFile('viral_posts_sample.txt', prettyPrintJson(userViral.viralPosts));
 
   const header = [
+    { id: 'isVideo', title: 'Is video?' },
     { id: 'numLikes', title: 'Likes' },
     { id: 'numComments', title: 'Comments' },
     { id: 'url', title: 'Url' },
-    { id: 'thumbnailSrc', title: 'Thumbnail' }
+    { id: 'mediaSource', title: 'Media source' }
   ];
 
   await handleCreateFolder([path.join(__dirname, OUTPUT_FOLDER, userViral.username)]);
