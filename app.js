@@ -63,7 +63,6 @@ function retrieveUserWebInfoHelper(data) {
             userViral.userSharedData = json;
             userViral.userWebData = json.entry_data.ProfilePage[0].graphql.user;
 
-            userViral.rhxGis = json.rhx_gis;
             userViral.userId = userViral.userWebData.id;
             userViral.numPosts = userViral.userWebData.edge_owner_to_timeline_media.count;
             userViral.numFollowers = userViral.userWebData.edge_followed_by.count;

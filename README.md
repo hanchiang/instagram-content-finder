@@ -27,6 +27,3 @@
   * provide an option to unfollow
 * Tests
 * Refactor spaghetti code
-
-## Notes
-rhx_gis seems to be the same for every user

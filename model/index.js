@@ -17,7 +17,6 @@ class UserViral {
     this.medianComments = 0;
     this.totalLikes = 0;
     this.totalComments = 0;
-    this.rhxGis = '';
     // from window._sharedData object in user profile page
     this.userSharedData = {};
     // User-specific data from userSharedData
