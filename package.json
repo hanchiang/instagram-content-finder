@@ -13,7 +13,7 @@
     "axios": "^0.17.1",
     "csv-writer": "^1.0.1",
     "htmlparser2": "^3.9.2",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "moment": "^2.22.2",
     "numeral": "^2.0.6"
   },
