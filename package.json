@@ -14,7 +14,7 @@
     "csv-writer": "^1.0.1",
     "htmlparser2": "^3.9.2",
     "lodash": "^4.17.10",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "numeral": "^2.0.6"
   },
   "devDependencies": {
